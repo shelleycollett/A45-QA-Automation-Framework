@@ -1,9 +1,8 @@
-package pages;
-
-import org.openqa.selenium.By;
+package pagefactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -18,21 +17,16 @@ public class BasePage {
         driver = givenDriver;
         wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         actions = new Actions(driver);
+        PageFactory.initElements(driver,this);
     }
-    public WebElement findElement(By locator) {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    public WebElement findElement(WebElement locator) {
+        return wait.until(ExpectedConditions.visibilityOf(locator));
     }
-    public void click (By locator) {
+    public void click (WebElement locator) {
         findElement(locator).click();
     }
-    public void doubleClick (By locator) {
+    public void doubleClick (WebElement locator) {
         actions.doubleClick(findElement(locator)).perform();
     }
-    public void contextClick (By locator) {
-        actions.contextClick(findElement(locator)).perform();
-    }
-
-
-
 }
 
